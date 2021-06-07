@@ -7,7 +7,7 @@ class Product:
     def __init__(self, product_id, product_name = None, opinions = []):
         self.product_id = product_id
         self.product_name = product_name
-        self.opinions = opinions
+        self.opinions = opinions.copy()
     
     def extract_product(self):
         next_page = "https://www.ceneo.pl/{}#tab=reviews".format(self.product_id)
@@ -40,10 +40,13 @@ class Product:
     def save_to_json(self):
         with open(f"app/products/{self.product_id}.json", "w", encoding="UTF-8") as fp:
             json.dump(self.to_dict(), fp, indent=4, ensure_ascii=False)
+        fp.close()
 
     def read_from_json(self):
+        print(self.product_id)
         with open(f"app/products/{self.product_id}.json", "r", encoding="UTF-8") as fp:
             prod = json.load(fp)
+        fp.close()
         self.product_name = prod['product_name']
         opinions = prod['opinions']
         for opinion in opinions:
