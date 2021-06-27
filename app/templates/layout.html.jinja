@@ -5,17 +5,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ceneo Web Scraper</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
+    <link integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;665&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            margin: 0 auto;
+            background-color: rgb(35,36,37);
+            color: rgb(150,150,159);
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex; 
+            flex-direction: column;
+        }
+        #navbarText {
+            background-color: rgb(27,28,29);
+            color: rgb(150,150,159);
+            margin: 0 auto;
+            padding: 0;
+        }
+        footer {
+            min-height: 50px;
+            margin-top:auto;
+            text-align: center;
+        }
+        #menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #menu a{
+            float: left;
+            color: rgb(150,150,159);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        #about{
+            position: relative;
+            float: right;
+        }
+        #menu a:hover{
+            background-color: rgb(150,150,159);
+            color: rgb(27,28,29);
+        }
+        .container{
+            padding: 25px;
+        }
+        input{
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; 
+        }
+        .list-group-item{
+            border-radius: 25px;
+            border: 2px solid rgb(150,150,159);
+            box-shadow: 10px 5px 5px rgb(150,150,159);
+            margin: 15px;
+            padding: 10px;
+        }
+        table{
+            border-radius: 25px;
+            border: 2px solid rgb(150,150,159);
+            box-shadow: 10px 5px 5px rgb(150,150,159);
+            margin: 15px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Ceneo Web Scraper</h1>
+
     </header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
          <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="menu">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Strona główna</a>
                     </li>
@@ -25,7 +98,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url_for('products') }}">Lista produktów</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="about">
                         <a class="nav-link active" aria-current="page" href="{{ url_for('about') }}">O autorze</a>
                     </li>
                 </ul>
@@ -45,7 +118,8 @@
     </div> 
     
     <footer>
-
+        <h1>Ceneo Web Scrapper</h1>
+        <p> Maciej Kućmierz • 2021 • Informatyka Stosowana UEK</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     {% block scripts %}

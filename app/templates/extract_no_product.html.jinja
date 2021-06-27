@@ -1,10 +1,15 @@
 {% extends "layout.html.jinja" %}
 
 {% block middle %}
-<h1>> /extract/</h1>
+    <script>
+        window.onload = function() {
+        alert("Produkt o takim ID nie istnieje")
+        };
+    </script>
+    <h1>> /extract/</h1>
     <form name="Form" action="{{ url_for('extract') }}" method="POST" onsubmit="return validateForm()">
         <div class="mb-3">
-            <label for="product_id" class="form-label">Identyfikator produktu</label></br>
+            <label for="product_id" class="form-label">Identyfikator produktu</label>
             <input type="text" class="form-control" id="product_id" name="product_id" placeholder="Podaj identyfikator produktu">
         </div>
     <input type="submit" class="btn btn-primary" value="Pobierz">

@@ -23,7 +23,16 @@ class Product:
             except IndexError:
                 next_page = None
             print(next_page)
-
+            if self.product_name == None:
+                try:
+                    self.product_name = page_dom.find("h1", class_="product-top__product-info__name long-name js_product-h1-link js_product-force-scroll js_searchInGoogleTooltip default-cursor").text[1:]
+                except AttributeError:
+                    self.product_name = "none"
+            if self.product_name == "none":
+                try:
+                    self.product_name = page_dom.find("h1", class_="product-top__product-info__name js_product-h1-link js_product-force-scroll js_searchInGoogleTooltip default-cursor").text[1:]
+                except AttributeError:
+                    self.product_name = "none"
     def __str__(self):
         return f"product_id: {self.product_id}<br>product_name: {self.product_name}<br>opinions:<br>" + "<br><br>".join(str(opinion) for opinion in self.opinions)
 
@@ -31,11 +40,38 @@ class Product:
         return f"Product(product_id={self.product_id}, product_name={self.product_name}, opinions=[" + ", ".join(opinion.__repr__() for opinion in self.opinions) + "])"
 
     def to_dict(self):
+        
         return {
             "product_id": self.product_id,
             "product_name": self.product_name,
             "opinions": [opinion.to_dict() for opinion in self.opinions]
         }
+
+    def json_info_file(self):
+        json_info = {}
+        info = {"id": "none",
+        "name" : "none",
+        "opinion_amount" : 0,
+        "pros_amount" : 0,
+        "cons_amount" : 0,
+        "avg_score": "Brak opinii"}
+        score = 0
+
+        with open(f"app/products/{self.product_id}.json", "r", encoding="UTF-8") as fp:
+            json_info = json.load(fp)
+
+        info["id"] = json_info['product_id']
+        info["name"] = json_info["product_name"]
+        for opinion in json_info["opinions"]:
+            info["opinion_amount"] += 1
+            info["pros_amount"] += len(opinion["cons"])
+            info["cons_amount"] += len(opinion["pros"])
+            score += opinion["stars"]
+
+        if info["opinion_amount"] > 0:
+            info["avg_score"] = round((score / info["opinion_amount"]), 2)
+        with open(f"app/info/{self.product_id}_info.json", "w", encoding="UTF-8") as file:
+            json.dump(info, file)
 
     def save_to_json(self):
         with open(f"app/products/{self.product_id}.json", "w", encoding="UTF-8") as fp:
